@@ -1,3 +1,7 @@
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <chrono>
 #include <random>
 #include "condition_variable_custom.h"
 
@@ -9,14 +13,14 @@ bool ready[2] = { false, false };
 void worker(int id)
 {
     std::unique_lock<std::mutex> lock(mtx);
-    std::cout << "Thread #" << id << " waiting...\n";
+    std::cout << "Потік #" << id << " чекає...\n";
     simple_cv.wait(lock, [id] { return ready[id - 1]; });
-    std::cout << "Thread #" << id << " woke up!\n";
+    std::cout << "Потік #" << id << " прокинувся!\n";
 }
 
 int main()
 {
-    std::cout << "Main thread starts...\n";
+    std::cout << "Головний потік запускається...\n";
 
     std::thread t1(worker, 1);
     std::thread t2(worker, 2);
@@ -34,6 +38,6 @@ int main()
     t1.join();
     t2.join();
 
-    std::cout << "Main thread ends...\n";
+    std::cout << "Головний потік завершується...\n";
     return 0;
 }
