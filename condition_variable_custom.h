@@ -18,11 +18,11 @@ public:
 		while (!pred())
 		{
 			lock.unlock();
-			while (!notified.load())  //std::memory_order_acquire
+			while (!notified.load()) 
 			{
 				std::this_thread::sleep_for(std::chrono::seconds(2));
 			}
-			notified.store(false);  //std::memory_order_acquire
+			notified.store(false);  
 			lock.lock();
 		}
 	}
