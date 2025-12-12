@@ -149,7 +149,7 @@ void consumer(int worker_id)
 
 int main() 
 {
-    //3 клієнти, сума = 15 замовлень
+    //5 клієнтів, сума = 15 замовлень
     const int clients = 5;
     const int workers = 3;
 
